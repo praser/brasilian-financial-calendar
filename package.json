@@ -1,0 +1,56 @@
+{
+  "name": "brazilian-financial-calendar",
+  "description": "API to deal with dates of brazilian financial calendar (ANBIMA)",
+  "version": "1.0.0",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/praser/brazilian-financial-calendar"
+  },
+  "main": "src/entry.ts",
+  "scripts": {
+    "dev": "nodemon --watch \"src/\" --exec \"ts-node src/entry.ts\" -e ts",
+    "test": "jest --no-cache",
+    "build": "tsc",
+    "prod": "npm run build && node dist/entry.js"
+  },
+  "keywords": [
+    "anbima",
+    "calendar",
+    "finance",
+    "investiments",
+    "cetip"
+  ],
+  "author": "Rubens Praser Júnior",
+  "license": "ISC",
+  "jest": {
+    "transform": {
+      "^.+\\.ts$": "ts-jest"
+    },
+    "testRegex": "\\.test\\.ts",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ]
+  },
+  "dependencies": {
+    "dotenv": "^7.0.0",
+    "express": "^4.16.4"
+  },
+  "devDependencies": {
+    "@types/dotenv": "^6.1.0",
+    "@types/express": "^4.16.1",
+    "@types/jest": "^24.0.11",
+    "@types/supertest": "^2.0.7",
+    "jest": "^24.5.0",
+    "nodemon": "^1.18.10",
+    "supertest": "^4.0.2",
+    "ts-jest": "^24.0.0",
+    "ts-node": "^8.0.3",
+    "typescript": "^3.3.4000"
+  }
+}
