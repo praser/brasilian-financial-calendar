@@ -1,16 +1,20 @@
 import * as dotenv from 'dotenv';
 import path from 'path';
 import * as XLSX from 'xlsx';
+import { Moment } from 'moment-timezone';
+import DateUtil from '../utils/DateUtil';
 
 dotenv.config();
 
 class Holiday {
+    private readonly timezone: string = `${process.env.TIMEZONE}`;
     private readonly path: string = path.join(__dirname, '../data', `${process.env.DATAFILE_NAME}`);
-    private holidays: Array<Date> = new Array<Date>();
+    private holidays: Array<Moment> = new Array<Moment>();
 
     public constructor() {
         this.getData().map((data: any) => {
-            this.holidays.push(new Date(1900, 0, data.Data -1));
+            const date: Moment = DateUtil.parseMomentFromExcel(data.Data);
+            this.holidays.push(date.tz(this.timezone));
         });
     }
 
@@ -22,7 +26,7 @@ class Holiday {
         return json;
     }
 
-    public getHolidays(): Array<Date> {
+    public getHolidays(): Array<Moment> {
         return this.holidays;
     }
 }

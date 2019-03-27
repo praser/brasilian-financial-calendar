@@ -1,49 +1,71 @@
 import Holiday from './Holiday';
+import { Moment } from 'moment-timezone';
+import DateUtil from '../utils/DateUtil';
 
 class Calendar {
-    private days: Array<Date> = new Array<Date>();
-    private holidays: Array<Date> = new Array<Date>();
-    private weekends: Array<Date> = new Array<Date>();
+    private readonly dateFormat: string = `${process.env.DATEFORMAT}`;
 
-    public constructor(startDate: Date, endDate: Date) {
-        this.setDays(startDate, endDate);
-        this.setHolidays(startDate, endDate);
+    private period: Array<Moment> = new Array<Moment>();
+    private holidays: Array<Moment> = new Array<Moment>();
+    private weekends: Array<Moment> = new Array<Moment>();
+    private startMoment!: Moment;
+    private endMoment!: Moment;
+
+    public constructor(startMoment: string, endMoment: string) {
+        this.startMoment = DateUtil.parseMomentFromString(startMoment);
+        this.endMoment = DateUtil.parseMomentFromString(endMoment);
+
+        this.serPeriod();
+        this.setHolidays();
         this.setWeekends();
     }
 
-    private setDays(startDate: Date, endDate: Date): void {
-        let dateIndex: Date = new Date(startDate);
-        while (dateIndex <= endDate) {
-            this.days.push(new Date(dateIndex));
-            dateIndex.setDate(dateIndex.getDate() + 1);
+    private serPeriod(): void {
+        let indexMoment: Moment = this.startMoment.clone();
+        while (indexMoment.isSameOrBefore(this.endMoment, 'day')) {
+            this.period.push(indexMoment.clone());
+            indexMoment.add(1, 'day');
         }
     }
 
-    public getDays(): Array<Date> {
-        return this.days;
+    public getPeriod(): Array<Moment> {
+        return this.period;
     }
 
-    private setHolidays(startDate: Date, endDate: Date): void {
+    private setHolidays(): void {
         const holiday = new Holiday();
-        this.holidays = holiday.getHolidays().filter((h: Date) => {
-            return h >= startDate && h <= endDate;
+        this.holidays = holiday.getHolidays().filter((h: Moment) => {
+            return h.isBetween(this.startMoment, this.endMoment, 'day');
         });
     }
 
-    public getHolidays(): Array<Date> {
+    public getHolidays(): Array<Moment> {
         return this.holidays;
     }
 
     private setWeekends(): void {
         const weekends = [0, 6];
         
-        for (const day of this.days) {
-            if (weekends.includes(day.getDay())) this.weekends.push(day);
+        for (const day of this.period) {
+            if (weekends.includes(day.weekday())) this.weekends.push(day.clone());
         }
     }
 
-    public getWeekends(): Array<Date> {
+    public getWeekends(): Array<Moment> {
         return this.weekends;
+    }
+
+    public getWorkdays(): Array<Moment> {
+        const weekends: Array<string> = this.convertMomentArrayToStringArray(this.weekends);
+        const holidays: Array<string> = this.convertMomentArrayToStringArray(this.holidays);
+
+        return this.period.filter(moment => {
+            return !weekends.includes(moment.format(this.dateFormat)) && !holidays.includes(moment.format(this.dateFormat));
+        });
+    }
+
+    public convertMomentArrayToStringArray(momentArray: Array<Moment>): Array<string> {
+        return momentArray.map(moment => moment.format(this.dateFormat));
     }
 }
 
