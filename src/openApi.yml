@@ -1,0 +1,179 @@
+openapi: 3.0.0
+info:
+  title: Interest Rate Converter API
+  description: This service converts interest rates between daily, monthly and yearly. It is useful for financial math, personal finances, investments, simulations, loans and all kind of tasks that involves money.
+  termsOfService: https://reststorm.com/therms-of-service
+  contact:
+    name: Interest Rate Converter API
+    url: https://reststorm.com/contact
+    email: apis@reststorm.com
+  license:
+    name: ISC License 
+    url: https://github.com/praser/interest-rate-converter-api/blob/master/LICENCE
+  version: 1.1.0
+paths:
+  /per-day/{interest-rate}:
+    get:
+      tags:
+        - Converts from daily interest rate
+      summary: Converts daily interest rate to monthly and yearly.
+      description: This endpoint converts daily interest rate to monthly and yearly.
+      operationId: per-day
+      parameters: 
+        - name: interest-rate
+          in: path
+          description: "The api will respond with an object that contains interest rates per day, month and year. This parameter MUST be provided in decimal notation and MUST use a . (dot) to separate decimal places."
+          required: true
+          schema:
+            type: number
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                title: Daily Interest rate converted
+                type: object
+                properties:
+                  perDay:
+                    type: number
+                    title: Daily interest rate
+                    description: Interest rate converted per day in centesimal notation
+                  perMonth:
+                    type: number
+                    title: Monthly interest rate
+                    description: Interest rate converted per month in centesimal notation
+                  perYear:
+                    type: number
+                    title: Yearly interest rate
+                    description: Interest rate converted per year in centesimal notation
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                title: The interest rate provided could not be processed
+                description: The value provided for interest rate param could not be processed. This exception is almost always related to passing non numerical values in interest rate param.
+                type: object
+                properties:
+                  error:
+                    type: object
+                    title: HTTP error object
+                    description: An object containing details about the exception
+                    properties:
+                      code:
+                        type: number
+                        title: Http error code
+                      description:
+                        type: string
+                        title: Description of the exception
+  /per-month/{interest-rate}:
+    get:
+      tags:
+        - Converts from monthly interest rate
+      summary: Converts monthly interest rate to daily and yearly.
+      description: This endpoint converts monthly interest rate to daily and yearly.
+      operationId: per-month
+      parameters: 
+        - name: interest-rate
+          in: path
+          description: "The api will respond with an object that contains interest rates per day, month and year. This parameter MUST be provided in decimal notation and MUST use a . (dot) to separate decimal places."
+          required: true
+          schema:
+            type: number
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                title: Monthly Interest rate converted
+                type: object
+                properties:
+                  perDay:
+                    type: number
+                    title: Daily interest rate
+                    description: Interest rate converted per day in centesimal notation
+                  perMonth:
+                    type: number
+                    title: Monthly interest rate
+                    description: Interest rate converted per month in centesimal notation
+                  perYear:
+                    type: number
+                    title: Yearly interest rate
+                    description: Interest rate converted per year in centesimal notation
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                title: The interest rate provided could not be processed
+                description: The value provided for interest rate param could not be processed. This exception is almost always related to passing non numerical values in interest rate param.
+                type: object
+                properties:
+                  error:
+                    type: object
+                    title: HTTP error object
+                    description: An object containing details about the exception
+                    properties:
+                      code:
+                        type: number
+                        title: Http error code
+                      description:
+                        type: string
+                        title: Description of the exception
+  /per-year/{interest-rate}:
+    get:
+      tags:
+        - Converts from yearly interest rate
+      summary: Converts yearly interest rate to daily and monthly.
+      description: This endpoint converts yearly interest rate to daily and monthly.
+      operationId: per-year
+      parameters: 
+        - name: interest-rate
+          in: path
+          description: "The api will respond with an object that contains interest rates per day, month and year. This parameter MUST be provided in decimal notation and MUST use a . (dot) to separate decimal places."
+          required: true
+          schema:
+            type: number
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                title: Yearly Interest rate converted
+                type: object
+                properties:
+                  perDay:
+                    type: number
+                    title: Daily interest rate
+                    description: Interest rate converted per day in centesimal notation
+                  perMonth:
+                    type: number
+                    title: Monthly interest rate
+                    description: Interest rate converted per month in centesimal notation
+                  perYear:
+                    type: number
+                    title: Yearly interest rate
+                    description: Interest rate converted per year in centesimal notation
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                title: The interest rate provided could not be processed
+                description: The value provided for interest rate param could not be processed. This exception is almost always related to passing non numerical values in interest rate param.
+                type: object
+                properties:
+                  error:
+                    type: object
+                    title: HTTP error object
+                    description: An object containing details about the exception
+                    properties:
+                      code:
+                        type: number
+                        title: Http error code
+                      description:
+                        type: string
+                        title: Description of the exception
