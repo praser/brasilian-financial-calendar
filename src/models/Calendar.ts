@@ -1,9 +1,10 @@
+import config from '../config';
 import Holiday from './Holiday';
 import { Moment } from 'moment-timezone';
 import DateUtil from '../utils/DateUtil';
 
 class Calendar {
-    private readonly dateFormat: string = `${process.env.DATEFORMAT}`;
+    private readonly dateFormat: string = `${process.env.DATE_FORMAT || config.dateFormat}`;
 
     private period: Array<Moment> = new Array<Moment>();
     private holidays: Array<Moment> = new Array<Moment>();

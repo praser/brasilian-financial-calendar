@@ -1,7 +1,8 @@
+import config from '../config';
 import { Moment } from 'moment-timezone';
 
 abstract class ResponseFormatter {
-    private static readonly dateFormat: string = `${process.env.DATEFORMAT}`;
+    private static readonly dateFormat: string = `${process.env.DATE_FORMAT || config.dateFormat}`;
 
     public static json(moments: Array<Moment>): object {
         const obj = {

@@ -1,14 +1,12 @@
-import * as dotenv from 'dotenv';
+import config from '../config';
 import path from 'path';
 import * as XLSX from 'xlsx';
 import { Moment } from 'moment-timezone';
 import DateUtil from '../utils/DateUtil';
 
-dotenv.config();
-
 class Holiday {
-    private readonly timezone: string = `${process.env.TIMEZONE}`;
-    private readonly path: string = path.join(__dirname, '../data', `${process.env.DATAFILE_NAME}`);
+    private readonly timezone: string = `${process.env.TIMEZONE || config.timezone}`;
+    private readonly path: string = path.join(__dirname, '../data', `${process.env.DATAFILE_NAME || config.dataFileName}`);
     private holidays: Array<Moment> = new Array<Moment>();
 
     public constructor() {
