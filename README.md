@@ -1,8 +1,8 @@
-# Interest Rate Converter API
+# Financial Calendar API
 
 ![github-issues](https://img.shields.io/github/issues/praser/financial-calendar-api.svg) [![Build Status](https://travis-ci.com/praser/financial-calendar-api.svg?branch=master)](https://travis-ci.com/praser/financial-calendar-api) [![Maintainability](https://api.codeclimate.com/v1/badges/3477bf5077175436a5b3/maintainability)](https://codeclimate.com/github/praser/financial-calendar-api/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/3477bf5077175436a5b3/test_coverage)](https://codeclimate.com/github/praser/financial-calendar-api/test_coverage) [![dependencies Status](https://david-dm.org/praser/financial-calendar-api/status.svg)](https://david-dm.org/praser/financial-calendar-api) [![devDependencies Status](https://david-dm.org/praser/financial-calendar-api/dev-status.svg)](https://david-dm.org/praser/financial-calendar-api?type=dev)
 
-A simple Rest API to deal with interest rate conversions
+A simple Rest API to deal with financial calendar
 
 ## Getting Started
 

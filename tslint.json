@@ -1,6 +1,3 @@
-// 20190415015818
-// https://raw.githubusercontent.com/praser/interest-rate-converter-api/master/tslint.json
-
 {
   "defaultSeverity": "error",
   "extends": [
