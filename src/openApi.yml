@@ -1,0 +1,174 @@
+openapi: 3.0.0
+info:
+  title: Financial Calendar API
+  description: API to deal with dates of financial calendars.
+  termsOfService: https://enriquece.me/therms-of-service
+  contact:
+    name: Financial Calendar API
+    url: https://enriquece.me/contact
+    email: apis@enriquece.me
+  license:
+    name: ISC License 
+    url: https://github.com/praser/financial-calendar-api/blob/master/LICENCE
+  version: 1.0.0
+paths:
+  /period/{start-date}/{end-date}:
+    get:
+      tags:
+        - Lists all dates within a range
+      summary: Lists all dates within a range.
+      description: This endpoint lists all dates within a range.
+      operationId: period
+      parameters: 
+        - name: start-date
+          in: path
+          description: "The first date in the range"
+          required: true
+          schema:
+            type: string
+        - name: end-date
+          in: path
+          description: "The last date in the range"
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                title: List of all dates within a range.
+                type: object
+                properties:
+                  count:
+                    type: number
+                    title: Length of date range
+                    description: This is the number of dates within the range.
+                  dates:
+                    type: array
+                    title: List of dates
+                    description: This is all the dates within the interval
+                    items:
+                      title: The date
+                      type: string
+  /weekends/{start-date}/{end-date}:
+    get:
+      tags:
+        - Lists all weekends dates within a range
+      summary: Lists all weekends dates within a range.
+      description: This endpoint lists all weekends dates within a range.
+      operationId: weekends
+      parameters: 
+        - name: start-date
+          in: path
+          description: "The first date in the range"
+          required: true
+          schema:
+            type: string
+        - name: end-date
+          in: path
+          description: "The last date in the range"
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                title: List of all weekends dates within a range.
+                type: object
+                properties:
+                  count:
+                    type: number
+                    title: Length of date range
+                    description: This is the number of dates within the range.
+                  dates:
+                    type: array
+                    title: List of dates
+                    description: This is all the dates within the interval
+                    items:
+                      title: The date
+                      type: string
+  /holidays/{start-date}/{end-date}:
+    get:
+      tags:
+        - Lists all holidays dates within a range
+      summary: Lists all holidays dates within a range.
+      description: This endpoint lists all holidays dates within a range.
+      operationId: holidays
+      parameters: 
+        - name: start-date
+          in: path
+          description: "The first date in the range"
+          required: true
+          schema:
+            type: string
+        - name: end-date
+          in: path
+          description: "The last date in the range"
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                title: List of all holidays dates within a range.
+                type: object
+                properties:
+                  count:
+                    type: number
+                    title: Length of date range
+                    description: This is the number of dates within the range.
+                  dates:
+                    type: array
+                    title: List of dates
+                    description: This is all the dates within the interval
+                    items:
+                      title: The date
+                      type: string
+  /workdays/{start-date}/{end-date}:
+    get:
+      tags:
+        - Lists all workdays within a range
+      summary: Lists all workdays within a range.
+      description: This endpoint lists all workdays within a range.
+      operationId: workdays
+      parameters: 
+        - name: start-date
+          in: path
+          description: "The first date in the range"
+          required: true
+          schema:
+            type: string
+        - name: end-date
+          in: path
+          description: "The last date in the range"
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                title: List of all workdays within a range.
+                type: object
+                properties:
+                  count:
+                    type: number
+                    title: Length of date range
+                    description: This is the number of dates within the range.
+                  dates:
+                    type: array
+                    title: List of dates
+                    description: This is all the dates within the interval
+                    items:
+                      title: The date
+                      type: string
