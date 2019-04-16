@@ -1,11 +1,15 @@
-import cors from 'cors';
-import express from 'express';
-import HttpErrorMiddleware, { NOT_FOUND } from './middlewares/httpErrorMiddleware';
-import swaggerMiddleware, { swaggerConfig } from './middlewares/swaggerMiddleware';
-import periodRouter from './routes/period-router';
-import holidaysRouter from './routes/holidays-router';
-import weekendsRouter from './routes/weekends-router';
-import workdaysRouter from './routes/workdays-router';
+import cors from "cors";
+import express from "express";
+import HttpErrorMiddleware, {
+  NOT_FOUND,
+} from "./middlewares/httpErrorMiddleware";
+import swaggerMiddleware, {
+  swaggerConfig,
+} from "./middlewares/swaggerMiddleware";
+import holidaysRouter from "./routes/holidays-router";
+import periodRouter from "./routes/period-router";
+import weekendsRouter from "./routes/weekends-router";
+import workdaysRouter from "./routes/workdays-router";
 
 const server = express();
 

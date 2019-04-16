@@ -1,8 +1,8 @@
-import * as dotenv from 'dotenv';
+import * as dotenv from "dotenv";
 dotenv.config();
 
 import config from "./config";
-import server from './server';
+import server from "./server";
 
 const port: number = parseInt(process.env.PORT || config.port, config.radix);
 
