@@ -1,179 +1,174 @@
 openapi: 3.0.0
 info:
-  title: Interest Rate Converter API
-  description: This service converts interest rates between daily, monthly and yearly. It is useful for financial math, personal finances, investments, simulations, loans and all kind of tasks that involves money.
-  termsOfService: https://reststorm.com/therms-of-service
+  title: Financial Calendar API
+  description: API to deal with dates of financial calendars.
+  termsOfService: https://enriquece.me/therms-of-service
   contact:
-    name: Interest Rate Converter API
-    url: https://reststorm.com/contact
-    email: apis@reststorm.com
+    name: Financial Calendar API
+    url: https://enriquece.me/contact
+    email: apis@enriquece.me
   license:
     name: ISC License 
-    url: https://github.com/praser/interest-rate-converter-api/blob/master/LICENCE
-  version: 1.1.0
+    url: https://github.com/praser/financial-calendar-api/blob/master/LICENCE
+  version: 1.0.0
 paths:
-  /per-day/{interest-rate}:
+  /period/{start-date}/{end-date}:
     get:
       tags:
-        - Converts from daily interest rate
-      summary: Converts daily interest rate to monthly and yearly.
-      description: This endpoint converts daily interest rate to monthly and yearly.
-      operationId: per-day
+        - Lists all dates within a range
+      summary: Lists all dates within a range.
+      description: This endpoint lists all dates within a range.
+      operationId: period
       parameters: 
-        - name: interest-rate
+        - name: start-date
           in: path
-          description: "The api will respond with an object that contains interest rates per day, month and year. This parameter MUST be provided in decimal notation and MUST use a . (dot) to separate decimal places."
+          description: "The first date in the range"
           required: true
           schema:
-            type: number
+            type: string
+        - name: end-date
+          in: path
+          description: "The last date in the range"
+          required: true
+          schema:
+            type: string
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                title: Daily Interest rate converted
+                title: List of all dates within a range.
                 type: object
                 properties:
-                  perDay:
+                  count:
                     type: number
-                    title: Daily interest rate
-                    description: Interest rate converted per day in centesimal notation
-                  perMonth:
-                    type: number
-                    title: Monthly interest rate
-                    description: Interest rate converted per month in centesimal notation
-                  perYear:
-                    type: number
-                    title: Yearly interest rate
-                    description: Interest rate converted per year in centesimal notation
-        400:
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                title: The interest rate provided could not be processed
-                description: The value provided for interest rate param could not be processed. This exception is almost always related to passing non numerical values in interest rate param.
-                type: object
-                properties:
-                  error:
-                    type: object
-                    title: HTTP error object
-                    description: An object containing details about the exception
-                    properties:
-                      code:
-                        type: number
-                        title: Http error code
-                      description:
-                        type: string
-                        title: Description of the exception
-  /per-month/{interest-rate}:
+                    title: Length of date range
+                    description: This is the number of dates within the range.
+                  dates:
+                    type: array
+                    title: List of dates
+                    description: This is all the dates within the interval
+                    items:
+                      title: The date
+                      type: string
+  /weekends/{start-date}/{end-date}:
     get:
       tags:
-        - Converts from monthly interest rate
-      summary: Converts monthly interest rate to daily and yearly.
-      description: This endpoint converts monthly interest rate to daily and yearly.
-      operationId: per-month
+        - Lists all weekends dates within a range
+      summary: Lists all weekends dates within a range.
+      description: This endpoint lists all weekends dates within a range.
+      operationId: weekends
       parameters: 
-        - name: interest-rate
+        - name: start-date
           in: path
-          description: "The api will respond with an object that contains interest rates per day, month and year. This parameter MUST be provided in decimal notation and MUST use a . (dot) to separate decimal places."
+          description: "The first date in the range"
           required: true
           schema:
-            type: number
+            type: string
+        - name: end-date
+          in: path
+          description: "The last date in the range"
+          required: true
+          schema:
+            type: string
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                title: Monthly Interest rate converted
+                title: List of all weekends dates within a range.
                 type: object
                 properties:
-                  perDay:
+                  count:
                     type: number
-                    title: Daily interest rate
-                    description: Interest rate converted per day in centesimal notation
-                  perMonth:
-                    type: number
-                    title: Monthly interest rate
-                    description: Interest rate converted per month in centesimal notation
-                  perYear:
-                    type: number
-                    title: Yearly interest rate
-                    description: Interest rate converted per year in centesimal notation
-        400:
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                title: The interest rate provided could not be processed
-                description: The value provided for interest rate param could not be processed. This exception is almost always related to passing non numerical values in interest rate param.
-                type: object
-                properties:
-                  error:
-                    type: object
-                    title: HTTP error object
-                    description: An object containing details about the exception
-                    properties:
-                      code:
-                        type: number
-                        title: Http error code
-                      description:
-                        type: string
-                        title: Description of the exception
-  /per-year/{interest-rate}:
+                    title: Length of date range
+                    description: This is the number of dates within the range.
+                  dates:
+                    type: array
+                    title: List of dates
+                    description: This is all the dates within the interval
+                    items:
+                      title: The date
+                      type: string
+  /holidays/{start-date}/{end-date}:
     get:
       tags:
-        - Converts from yearly interest rate
-      summary: Converts yearly interest rate to daily and monthly.
-      description: This endpoint converts yearly interest rate to daily and monthly.
-      operationId: per-year
+        - Lists all holidays dates within a range
+      summary: Lists all holidays dates within a range.
+      description: This endpoint lists all holidays dates within a range.
+      operationId: holidays
       parameters: 
-        - name: interest-rate
+        - name: start-date
           in: path
-          description: "The api will respond with an object that contains interest rates per day, month and year. This parameter MUST be provided in decimal notation and MUST use a . (dot) to separate decimal places."
+          description: "The first date in the range"
           required: true
           schema:
-            type: number
+            type: string
+        - name: end-date
+          in: path
+          description: "The last date in the range"
+          required: true
+          schema:
+            type: string
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                title: Yearly Interest rate converted
+                title: List of all holidays dates within a range.
                 type: object
                 properties:
-                  perDay:
+                  count:
                     type: number
-                    title: Daily interest rate
-                    description: Interest rate converted per day in centesimal notation
-                  perMonth:
-                    type: number
-                    title: Monthly interest rate
-                    description: Interest rate converted per month in centesimal notation
-                  perYear:
-                    type: number
-                    title: Yearly interest rate
-                    description: Interest rate converted per year in centesimal notation
-        400:
-          description: Bad Request
+                    title: Length of date range
+                    description: This is the number of dates within the range.
+                  dates:
+                    type: array
+                    title: List of dates
+                    description: This is all the dates within the interval
+                    items:
+                      title: The date
+                      type: string
+  /workdays/{start-date}/{end-date}:
+    get:
+      tags:
+        - Lists all workdays within a range
+      summary: Lists all workdays within a range.
+      description: This endpoint lists all workdays within a range.
+      operationId: workdays
+      parameters: 
+        - name: start-date
+          in: path
+          description: "The first date in the range"
+          required: true
+          schema:
+            type: string
+        - name: end-date
+          in: path
+          description: "The last date in the range"
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Success
           content:
             application/json:
               schema:
-                title: The interest rate provided could not be processed
-                description: The value provided for interest rate param could not be processed. This exception is almost always related to passing non numerical values in interest rate param.
+                title: List of all workdays within a range.
                 type: object
                 properties:
-                  error:
-                    type: object
-                    title: HTTP error object
-                    description: An object containing details about the exception
-                    properties:
-                      code:
-                        type: number
-                        title: Http error code
-                      description:
-                        type: string
-                        title: Description of the exception
+                  count:
+                    type: number
+                    title: Length of date range
+                    description: This is the number of dates within the range.
+                  dates:
+                    type: array
+                    title: List of dates
+                    description: This is all the dates within the interval
+                    items:
+                      title: The date
+                      type: string
