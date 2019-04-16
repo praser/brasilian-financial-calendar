@@ -8,8 +8,7 @@ RUN npm install -g typescript
 # A wild card is used to ensure both package.json AND package-lock.json are copied
 # whee available (npm@5+)
 COPY package*.json ./
-RUN npm install
-RUN npm ci
+RUN npm ci --prod
 
 # Bundle app source
 COPY . .
