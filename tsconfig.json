@@ -12,6 +12,7 @@
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
+    "strictNullChecks": false,
     "plugins": [
       {
         "name": "typescript-tslint-plugin",
@@ -23,9 +24,6 @@
       }
     ],
   },
-  "include": [
-    "src/**/*"
-  ],
   "exclude": [
     "src/tests"
   ],
