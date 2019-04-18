@@ -70,13 +70,13 @@ class Calendar extends DateUtil {
     const weekends = [0, 6];
 
     for (const day of this.period) {
-      if (weekends.includes(day.weekday())) { this.weekends.push(day.clone()); }
+      if (weekends.includes(day.weekday())) {
+        this.weekends.push(day.clone());
+      }
     }
   }
 
-  private convertMomentArrayToStringArray(
-    momentArray: Moment[],
-  ): string[] {
+  private convertMomentArrayToStringArray(momentArray: Moment[]): string[] {
     return momentArray.map((moment) => moment.format(this.dateFormat));
   }
 }

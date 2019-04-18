@@ -2,7 +2,6 @@ import { Moment } from "moment-timezone";
 import config from "../config";
 
 abstract class ResponseFormatter {
-
   public static json(moments: Moment[]): object {
     const obj = {
       count: moments.length,
