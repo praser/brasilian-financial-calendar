@@ -3,9 +3,6 @@ import express from "express";
 import HttpErrorMiddleware, {
   NOT_FOUND,
 } from "./middlewares/httpErrorMiddleware";
-import swaggerMiddleware, {
-  swaggerConfig,
-} from "./middlewares/swaggerMiddleware";
 import Calendar from "./models/Calendar";
 import calendarRouter from "./routes/calendar-router";
 import holidaysRouter from "./routes/holidays-router";
@@ -25,11 +22,6 @@ declare global {
 const server = express();
 
 server.use(cors());
-server.use(
-  /.*\/doc/,
-  swaggerMiddleware.serve,
-  swaggerMiddleware.setup(swaggerConfig),
-);
 server.use(/.*\/holidays/, calendarRouter, holidaysRouter);
 server.use(/.*\/weekends/, calendarRouter, weekendsRouter);
 server.use(/.*\/workdays/, calendarRouter, workdaysRouter);
