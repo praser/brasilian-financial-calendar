@@ -5,10 +5,7 @@ import HttpErrorMiddleware, {
 } from "./middlewares/httpErrorMiddleware";
 import Calendar from "./models/Calendar";
 import calendarRouter from "./routes/calendar-router";
-import holidaysRouter from "./routes/holidays-router";
-import periodRouter from "./routes/period-router";
-import weekendsRouter from "./routes/weekends-router";
-import workdaysRouter from "./routes/workdays-router";
+import router from "./routes/router";
 
 declare global {
   namespace Express {
@@ -22,10 +19,7 @@ declare global {
 const server = express();
 
 server.use(cors());
-server.use(/.*\/holidays/, calendarRouter, holidaysRouter);
-server.use(/.*\/weekends/, calendarRouter, weekendsRouter);
-server.use(/.*\/workdays/, calendarRouter, workdaysRouter);
-server.use(/.*\/period/, calendarRouter, periodRouter);
+server.use(/.*\/(holidays|weekends|workdays|period)/, calendarRouter, router);
 server.all("/*", (_, __, next) => next(NOT_FOUND));
 server.use(HttpErrorMiddleware);
 

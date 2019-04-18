@@ -18,7 +18,7 @@ class Calendar extends DateUtil {
     this.startMoment = this.parseMomentFromString(startMoment);
     this.endMoment = this.parseMomentFromString(endMoment);
 
-    this.serPeriod();
+    this.setPeriod();
     this.setHolidays();
     this.setWeekends();
   }
@@ -51,7 +51,7 @@ class Calendar extends DateUtil {
     });
   }
 
-  private serPeriod(): void {
+  private setPeriod(): void {
     const indexMoment: Moment = this.startMoment.clone();
     while (indexMoment.isSameOrBefore(this.endMoment, "day")) {
       this.period.push(indexMoment.clone());
