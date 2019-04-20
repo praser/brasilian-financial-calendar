@@ -2,34 +2,48 @@ import Calendar from "../../models/Calendar";
 
 let calendar!: Calendar;
 
-describe("Given an interval of dates between 2019-01-01 and 2019-12-01", () => {
+describe("Given an interval of dates between 2019-01-01 and 2019-01-31", () => {
   beforeAll(() => {
     const startMoment: string = "2019-01-01";
-    const endMoment: string = "2019-12-31";
+    const endMoment: string = "2019-01-31";
     calendar = new Calendar(startMoment, endMoment);
   });
 
-  it("is expected to have 365 days", () => {
-    const expected: number = 366;
+  it("is expected to have 31 days", () => {
+    const expected: number = 31;
     const received: number = calendar.getPeriod().length;
     expect(received).toBe(expected);
   });
 
-  it("is expected to have 11 holidays", () => {
-    const expected: number = 11;
+  it("is expected to have 1 holiday", () => {
+    const expected: number = 1;
     const received: number = calendar.getHolidays().length;
     expect(received).toBe(expected);
   });
 
-  it("is expected to have 105 weekends days", () => {
-    const expected: number = 105;
+  it("is expected to have 8 weekends days", () => {
+    const expected: number = 8;
     const received: number = calendar.getWeekends().length;
     expect(received).toBe(expected);
   });
 
-  it("is expected do have 254 working days", () => {
-    const expected: number = 254;
+  it("is expected do have 22 working days", () => {
+    const expected: number = 22;
     const received: number = calendar.getWorkdays().length;
+    expect(received).toBe(expected);
+  });
+});
+
+describe("Given an interval of dates between 2019-01-06 and 2019-01-12", () => {
+  beforeAll(() => {
+    const startMoment: string = "2019-01-06";
+    const endMoment: string = "2019-01-12";
+    calendar = new Calendar(startMoment, endMoment);
+  });
+
+  it("is expected to have 2 weekends days", () => {
+    const expected: number = 2;
+    const received: number = calendar.getWeekends().length;
     expect(received).toBe(expected);
   });
 });
