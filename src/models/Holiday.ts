@@ -1,4 +1,4 @@
-import { Moment } from "moment-timezone";
+import { Moment } from "moment";
 import path from "path";
 import * as XLSX from "xlsx";
 import config from "../config";
@@ -16,7 +16,7 @@ class Holiday extends DateUtil {
     super();
     this.getData().map((data: any) => {
       const date: Moment = this.parseMomentFromExcel(data.Data);
-      this.holidays.push(date.tz(this.timezone));
+      this.holidays.push(date);
     });
   }
 

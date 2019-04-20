@@ -1,5 +1,5 @@
 import express from "express";
-import { Moment } from "moment-timezone";
+import { Moment } from "moment";
 import ResponseFormatter from "../utils/ResponseFormatter";
 
 const router = express.Router();
@@ -7,9 +7,9 @@ const routesRegex: RegExp = /.*\/(holidays|weekends|workdays|period)/;
 
 router.get("/:startDate/:endDate", (req, res) => {
   let momentList: Moment[];
-  const path: String = req.baseUrl.match(routesRegex)[1];
+  const path: string = req.baseUrl.match(routesRegex)[1];
 
-switch (path) {
+  switch (path) {
     case "holidays":
       momentList = req.calendar.getHolidays();
       break;

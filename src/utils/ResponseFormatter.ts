@@ -1,4 +1,4 @@
-import { Moment } from "moment-timezone";
+import { Moment } from "moment";
 import config from "../config";
 
 abstract class ResponseFormatter {
