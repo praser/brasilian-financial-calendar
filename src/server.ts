@@ -1,3 +1,4 @@
+import * as health from "@cloudnative/health-connect";
 import cors from "cors";
 import express from "express";
 import morgan from "morgan";
@@ -18,9 +19,11 @@ declare global {
 }
 
 const server = express();
+const healthcheck = new health.HealthChecker();
 
 server.use(cors());
 server.use(morgan("combined"));
+server.use(/.*\/health/, health.LivenessEndpoint(healthcheck));
 server.use(/.*\/(holidays|weekends|workdays|period)/, calendarRouter, router);
 server.all("/*", (_, __, next) => next(NOT_FOUND));
 server.use(HttpErrorMiddleware);

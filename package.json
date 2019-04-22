@@ -25,6 +25,7 @@
   "author": "Rubens Praser Júnior",
   "license": "ISC",
   "dependencies": {
+    "@cloudnative/health-connect": "^1.0.2",
     "cors": "^2.8.5",
     "dotenv": "^7.0.0",
     "express": "^4.16.4",
