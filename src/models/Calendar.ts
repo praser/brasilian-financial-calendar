@@ -47,10 +47,10 @@ class Calendar {
   }
 
   private setPeriod(): void {
-    const indexMoment: DateHandler = this.startDateHandler.clone();
-    while (indexMoment.isSameOrBefore(this.endDateHandler)) {
-      this.period.push(indexMoment.clone());
-      indexMoment.add(1, "day");
+    const indexDateHender: DateHandler = this.startDateHandler.clone();
+    while (indexDateHender.isSameOrBefore(this.endDateHandler)) {
+      this.period.push(indexDateHender.clone());
+      indexDateHender.add(1, "day");
     }
   }
 

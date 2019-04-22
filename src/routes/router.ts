@@ -1,29 +1,29 @@
 import express from "express";
-import { Moment } from "moment";
+import DateHandler from "../models/DateHandler";
 import ResponseFormatter from "../utils/ResponseFormatter";
 
 const router = express.Router();
 const routesRegex: RegExp = /.*\/(holidays|weekends|workdays|period)/;
 
 router.get("/:startDate/:endDate", (req, res) => {
-  let momentList: Moment[];
+  let dateHandlerCollection: DateHandler[];
   const path: string = req.baseUrl.match(routesRegex)[1];
 
   switch (path) {
     case "holidays":
-      momentList = req.calendar.getHolidays();
+      dateHandlerCollection = req.calendar.getHolidays();
       break;
     case "weekends":
-      momentList = req.calendar.getWeekends();
+      dateHandlerCollection = req.calendar.getWeekends();
       break;
     case "workdays":
-      momentList = req.calendar.getWorkdays();
+      dateHandlerCollection = req.calendar.getWorkdays();
       break;
     case "period":
-      momentList = req.calendar.getPeriod();
+      dateHandlerCollection = req.calendar.getPeriod();
       break;
   }
-  res.json(ResponseFormatter.json(momentList));
+  res.json(ResponseFormatter.json(dateHandlerCollection));
 });
 
 export { routesRegex };

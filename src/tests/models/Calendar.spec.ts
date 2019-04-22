@@ -5,9 +5,9 @@ let calendar!: Calendar;
 
 describe("Given an interval of dates between 2019-01-01 and 2019-01-31", () => {
   beforeAll(() => {
-    const startMoment: string = "2019-01-01";
-    const endMoment: string = "2019-01-31";
-    calendar = new Calendar(startMoment, endMoment);
+    const startDate: string = "2019-01-01";
+    const endDate: string = "2019-01-31";
+    calendar = new Calendar(startDate, endDate);
   });
 
   it("is expected to have 31 days", () => {
@@ -45,9 +45,9 @@ describe("Given an interval of dates between 2019-01-01 and 2019-01-31", () => {
 
 describe("Given an interval of dates between 2019-01-06 and 2019-01-12", () => {
   beforeAll(() => {
-    const startMoment: string = "2019-01-06";
-    const endMoment: string = "2019-01-12";
-    calendar = new Calendar(startMoment, endMoment);
+    const startDate: string = "2019-01-06";
+    const endDate: string = "2019-01-12";
+    calendar = new Calendar(startDate, endDate);
   });
 
   it("is expected to have 2 weekends days", () => {

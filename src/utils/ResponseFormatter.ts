@@ -1,17 +1,14 @@
-import { Moment } from "moment";
-import config from "../config";
+import DateHandler from "../models/DateHandler";
 
 abstract class ResponseFormatter {
-  public static json(moments: Moment[]): object {
+  public static json(dateHanderCollection: DateHandler[]): object {
     const obj = {
-      count: moments.length,
-      dates: moments.map((moment) => moment.format(this.dateFormat)),
+      count: dateHanderCollection.length,
+      dates: dateHanderCollection.map((dateHander) => dateHander.getString()),
     };
 
     return obj;
   }
-  private static readonly dateFormat: string = `${process.env.DATE_FORMAT ||
-    config.dateFormat}`;
 }
 
 export default ResponseFormatter;
