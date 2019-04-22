@@ -1,4 +1,5 @@
 import Calendar from "../../models/Calendar";
+import DateHandler from "../../models/DateHandler";
 
 let calendar!: Calendar;
 
@@ -19,6 +20,14 @@ describe("Given an interval of dates between 2019-01-01 and 2019-01-31", () => {
     const expected: number = 1;
     const received: number = calendar.getHolidays().length;
     expect(received).toBe(expected);
+  });
+
+  it("is expected to have 2001-01-01 as a holiday", () => {
+    const expected: string = "2019-01-01";
+    const received: string[] = calendar
+      .getHolidays()
+      .map((h: DateHandler) => h.getString());
+    expect(received).toContain(expected);
   });
 
   it("is expected to have 8 weekends days", () => {
