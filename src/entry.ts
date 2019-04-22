@@ -5,6 +5,9 @@ import config from "./config";
 import server from "./server";
 
 const port: number = parseInt(process.env.PORT || config.port, config.radix);
+if (process.env.TZ === undefined) {
+  process.env.TZ = config.tz;
+}
 
 server.listen(port, () => {
   // tslint:disable-next-line:no-console

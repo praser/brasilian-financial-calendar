@@ -1,69 +1,71 @@
-import { Moment } from "moment";
-import config from "../config";
-import DateUtil from "./DateUtil";
+import HolidayDao from "../dao/HolidayDao";
+import DateHandler from "./DateHandler";
 import Holiday from "./Holiday";
 
-class Calendar extends DateUtil {
-  private readonly dateFormat: string = `${process.env.DATE_FORMAT ||
-    config.dateFormat}`;
+class Calendar {
+  private period: DateHandler[] = new Array<DateHandler>();
+  private holidays: DateHandler[] = new Array<DateHandler>();
+  private weekends: DateHandler[] = new Array<DateHandler>();
+  private startDateHandler!: DateHandler;
+  private endDateHandler!: DateHandler;
 
-  private period: Moment[] = new Array<Moment>();
-  private holidays: Moment[] = new Array<Moment>();
-  private weekends: Moment[] = new Array<Moment>();
-  private startMoment!: Moment;
-  private endMoment!: Moment;
-
-  public constructor(startMoment: string, endMoment: string) {
-    super();
-    this.startMoment = this.parseMomentFromString(startMoment);
-    this.endMoment = this.parseMomentFromString(endMoment);
+  public constructor(startDateString: string, endDateString: string) {
+    this.startDateHandler = new DateHandler(startDateString);
+    this.endDateHandler = new DateHandler(endDateString);
 
     this.setPeriod();
     this.setHolidays();
     this.setWeekends();
   }
 
-  public getPeriod(): Moment[] {
+  public getPeriod(): DateHandler[] {
     return this.period;
   }
 
-  public getHolidays(): Moment[] {
+  public getHolidays(): DateHandler[] {
     return this.holidays;
   }
 
-  public getWeekends(): Moment[] {
+  public getWeekends(): DateHandler[] {
     return this.weekends;
   }
 
-  public getWorkdays(): Moment[] {
-    const weekends: string[] = this.convertMomentArrayToStringArray(
+  public getWorkdays(): DateHandler[] {
+    const weekends: string[] = this.dateHandlerCollectionToString(
       this.weekends,
     );
-    const holidays: string[] = this.convertMomentArrayToStringArray(
+    const holidays: string[] = this.dateHandlerCollectionToString(
       this.holidays,
     );
 
-    return this.period.filter((moment) => {
+    return this.period.filter((dateHanlder) => {
       return (
-        !weekends.includes(moment.format(this.dateFormat)) &&
-        !holidays.includes(moment.format(this.dateFormat))
+        !weekends.includes(dateHanlder.getString()) &&
+        !holidays.includes(dateHanlder.getString())
       );
     });
   }
 
   private setPeriod(): void {
-    const indexMoment: Moment = this.startMoment.clone();
-    while (indexMoment.isSameOrBefore(this.endMoment, "day")) {
-      this.period.push(indexMoment.clone());
-      indexMoment.add(1, "day");
+    const indexDateHender: DateHandler = this.startDateHandler.clone();
+    while (indexDateHender.isSameOrBefore(this.endDateHandler)) {
+      this.period.push(indexDateHender.clone());
+      indexDateHender.add(1, "day");
     }
   }
 
   private setHolidays(): void {
-    const holiday = new Holiday();
-    this.holidays = holiday.getHolidays().filter((h: Moment) => {
-      return h.isBetween(this.startMoment, this.endMoment, "day");
-    });
+    const dao = new HolidayDao();
+    this.holidays = dao
+      .all()
+      .filter((holiday: Holiday) => {
+        return holiday
+          .getDateHandler()
+          .isSameOrBetween(this.startDateHandler, this.endDateHandler);
+      })
+      .map((holiday: Holiday) => {
+        return holiday.getDateHandler();
+      });
   }
 
   private setWeekends(): void {
@@ -76,8 +78,8 @@ class Calendar extends DateUtil {
     }
   }
 
-  private convertMomentArrayToStringArray(momentArray: Moment[]): string[] {
-    return momentArray.map((moment) => moment.format(this.dateFormat));
+  private dateHandlerCollectionToString(collection: DateHandler[]): string[] {
+    return collection.map((item) => item.getString());
   }
 }
 
