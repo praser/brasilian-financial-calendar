@@ -5,7 +5,7 @@ class DateHandler {
   private readonly dateFormat: string =
     process.env.DATE_FORMAT || config.dateFormat;
   private readonly timezone: string =
-    process.env.TZ !== undefined ? process.env.TZ : "America/Sao_Paulo";
+    process.env.TZ !== undefined ? process.env.TZ : config.tz;
   private moment!: Moment;
 
   constructor(date: string | number) {

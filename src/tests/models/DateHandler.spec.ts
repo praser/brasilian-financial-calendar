@@ -1,3 +1,4 @@
+import config from "../../config";
 import DateHandler from "../../models/DateHandler";
 
 describe("given a string date 2001-01-01", () => {
@@ -9,7 +10,7 @@ describe("given a string date 2001-01-01", () => {
   });
 
   it("is expected to have default timezone", () => {
-    expect(date.getTimezone()).toBe("America/Sao_Paulo");
+    expect(date.getTimezone()).toBe(config.tz);
   });
 
   it("is expected to return 2001-01-01 when getString() is called", () => {
@@ -102,7 +103,7 @@ describe("given a number date 36892", () => {
   });
 
   it("is expected to have default timezone", () => {
-    expect(date.getTimezone()).toBe("America/Sao_Paulo");
+    expect(date.getTimezone()).toBe(config.tz);
   });
 
   it("is expected to return 2001-01-01 when getString() is called", () => {
