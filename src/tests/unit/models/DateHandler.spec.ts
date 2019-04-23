@@ -1,5 +1,5 @@
-import config from "../../config";
-import DateHandler from "../../models/DateHandler";
+import config from "../../../config";
+import DateHandler from "../../../models/DateHandler";
 
 describe("given a string date 2001-01-01", () => {
   const dateString: string = "2001-01-01";

@@ -1,5 +1,5 @@
-import HolidayDao from "../../dao/HolidayDao";
-import Holiday from "../../models/Holiday";
+import HolidayDao from "../../../dao/HolidayDao";
+import Holiday from "../../../models/Holiday";
 
 describe("HolidayDao", () => {
   const dao: HolidayDao = new HolidayDao();
