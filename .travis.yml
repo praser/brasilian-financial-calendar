@@ -13,7 +13,6 @@ script:
   - node_modules/jest/bin/jest.js --no-cache --coverage
 after_script:
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
-
 before_deploy:
   - pip3 install --user requests[security] awscli -q
   - export PATH=$PATH:$HOME/.local/bin
@@ -24,9 +23,8 @@ deploy:
   script: bash src/scripts/deploy.sh
   on:
     branch: master
-after_deploy:
+after_success:
   - npm run integration-test
-
 addons:
   apt:
     sources:
