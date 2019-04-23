@@ -22,9 +22,12 @@ const server = express();
 const healthcheck = new health.HealthChecker();
 
 server.use(cors());
-server.use(morgan("combined", {
-  skip: (req: Request, res: Response) => req.baseUrl.match(/.*\/health/) ? true : false,
-}));
+server.use(
+  morgan("combined", {
+    skip: (req: Request, res: Response) =>
+      req.baseUrl.match(/.*\/health/) ? true : false,
+  }),
+);
 server.use(/.*\/health/, health.LivenessEndpoint(healthcheck));
 server.use(/.*\/(holidays|weekends|workdays|period)/, calendarRouter, router);
 server.all("/*", (_, __, next) => next(NOT_FOUND));
