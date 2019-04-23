@@ -23,7 +23,7 @@ deploy:
   script: bash src/scripts/deploy.sh
   on:
     branch: master
-after_success:
+after_deploy:
   - npm run integration-test
 addons:
   apt:
