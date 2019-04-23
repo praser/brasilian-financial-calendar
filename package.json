@@ -11,6 +11,9 @@
   "scripts": {
     "dev": "nodemon --watch \"src/\" --exec \"ts-node src/entry.ts\" -e ts",
     "test": "jest  --no-cache --coverage",
+    "int-test-sandbox": "node_modules/.bin/newman run src/tests/integration/financial-calendar-api.postman_collection.json  -e src/tests/integration/Sandbox.postman_environment.json",
+    "int-test-prod": "node_modules/.bin/newman run src/tests/integration/financial-calendar-api.postman_collection.json  -e src/tests/integration/Production.postman_environment.json",
+    "integration-test": "npm run int-test-sandbox && npm run int-test-prod",
     "build": "tsc && cp -r src/data dist/data",
     "prod": "npm run build && node dist/entry.js",
     "lint": "prettier --write \"src/**/*.ts\" && tslint --project . --fix"
@@ -44,6 +47,7 @@
     "@types/supertest": "^2.0.7",
     "@types/yamljs": "^0.2.30",
     "jest": "^24.5.0",
+    "newman": "^4.4.1",
     "nodemon": "^1.18.10",
     "prettier": "^1.16.4",
     "supertest": "^4.0.2",
