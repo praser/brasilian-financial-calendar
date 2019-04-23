@@ -1,5 +1,5 @@
-import Calendar from "../../models/Calendar";
-import DateHandler from "../../models/DateHandler";
+import Calendar from "../../../models/Calendar";
+import DateHandler from "../../../models/DateHandler";
 
 let calendar!: Calendar;
 
